@@ -1,7 +1,8 @@
 import express from 'express'
-import { Interface } from 'readline';
-const app = express()
-const port = 5000
+const app = express();
+const port = 5000;
+
+const catRouts = require('./routs/cat');
 
 type Cat = {
   name:string,
@@ -13,10 +14,10 @@ const newCat:Cat = {
   age:12
 }
 
-let test:string = "Hey from server using ts";
+app.use(catRouts);
 
-app.get('/', (_, res) => {
-  res.status(200).send(newCat)
-})  
+app.use("/",(req, res, next) => {
+  res.status(404).send('Page not found this is message from server');
+});
 
 app.listen(port, () => console.log(`Running on port ${port}`))
